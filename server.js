@@ -12,3 +12,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
+// .connect() method using the mongoDB 
+mongoose.connect(
+    process.env.MONGODB_URI || "mongodb://localhost/fitnessdb",
+     {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+        useFindAndModify: false
+    }
+);
+
