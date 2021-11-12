@@ -6,4 +6,9 @@ const app = express();
 // HEROKU PORT
 const PORT = process.env.PORT || 3000;
 
+// middleware
+app.use(logger("dev"));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static("public"));
 
