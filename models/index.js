@@ -1,4 +1,4 @@
 // Exporting an object containing the workouttracker
 module.exports = {
-    FitnessTracker: require("./workoutTracker")
+    FitnessTracker: require("./FitnessTracker")
   };
