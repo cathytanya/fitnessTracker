@@ -7,7 +7,7 @@ router.get("/", (req,res)=>{
     res.sendFile(path.join(__dirname,"../public/index.html"))
 })
 
-//takes the user to teh exercise.html
+//takes the user to the exercise.html
 router.get("/exercise",(req,res)=>{
     res.sendFile(path.join(__dirname,"../public/exercise.html"))
 })
