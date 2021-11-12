@@ -22,4 +22,7 @@ mongoose.connect(
         useFindAndModify: false
     }
 );
+// malware from the following routes
+app.use(require("./routes/api"))
+app.use(require("./routes/html"))
 
