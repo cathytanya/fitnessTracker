@@ -37,3 +37,12 @@ router.put("/api/workout/:id", (req,res)=>{
         res.json(err);
     })
 })
+
+// POST ROUTE to create a workout
+router.post("/api/workout/:id", (req,res)=>{
+    db.FitnessTracker.create(body).then((dbFitnessTracker=>{
+        res.json(dbFitnessTracker)
+    })).catch(err=>{
+        res.json(err);
+    })
+})
