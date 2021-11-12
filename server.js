@@ -24,7 +24,7 @@ mongoose.connect(
 );
 // malware from the following routes
 app.use(require("./routes/api"))
-app.use(require("./routes/html"))
+// app.use(require("./routes/html"))
 
 // Start the server
 app.listen(PORT, () => {
