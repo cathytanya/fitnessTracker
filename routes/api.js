@@ -22,7 +22,7 @@ router.get("/api/workouts", (req,res)=>{
 })
 
 // PUT ROUTES to ADD EXERCISE
-router.put("/api/workout/:id", (req,res)=>{
+router.put("/api/workouts/:id", (req,res)=>{
     db.FitnessTracker.findOneAndUpdate(
         {_id: req.params.id},
         {
@@ -39,10 +39,24 @@ router.put("/api/workout/:id", (req,res)=>{
 })
 
 // POST ROUTE to create a workout
-router.post("/api/workout/:id", (req,res)=>{
+router.post("/api/workouts/:id", (req,res)=>{
     db.FitnessTracker.create(body).then((dbFitnessTracker=>{
         res.json(dbFitnessTracker)
     })).catch(err=>{
         res.json(err);
     })
 })
+
+// GET ROUTE to get workout in range
+router.get("/api/workouts/range", (req,res)=>{
+    db.FitnessTracker.find({}).then(dbFitnessTracker=>{
+        console.log("ALL WORKOUTS")
+        console.log(dbFitnessTracker)
+        res.json(dbFitnessTracker)
+    }).catch(err=>{
+        res.json(err);
+    })
+})
+
+// export the router
+module.exports = router;
