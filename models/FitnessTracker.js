@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema;
 
 // creating the collection module here
-const FitnessTrackerSchema = new Schema({
+const fitnessTrackerSchema = new Schema({
     // the date column. data type is date and will use today's date as the default
     day:{
         type: Date,
@@ -50,7 +50,15 @@ const FitnessTrackerSchema = new Schema({
     }
 })
 
-const FitnessTracker = mongoose.model("FitnessTracker",FitnessTrackerSchema)
+
+
+fitnessTrackerSchema.virtual("totalDuration").get(function () {
+    return this.exercises.reduce((total,exercise)=>{
+        return total + exercise.duration;
+    },0)
+})
+
+const FitnessTracker = mongoose.model("FitnessTracker", fitnessTrackerSchema)
 
 // export the FitnessTracker model
 module.exports = FitnessTracker
