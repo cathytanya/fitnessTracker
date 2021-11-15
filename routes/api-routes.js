@@ -1,6 +1,6 @@
 // list of modules
 const router = require("express").Router();
-const FitnessTracker = require("../models/fitnessTracker")
+const FitnessTracker = require("../models/fitnessTracker.js")
 
 // POST ROUTE to CREATE a workout
 router.post("/api/workouts", (req,res)=>{
