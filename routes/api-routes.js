@@ -14,7 +14,8 @@ router.post("/api/workouts", ({ body },res)=>{
 // GET ROUTE get workouts 
 router.get("/api/workouts", (req,res)=>{
     // show all the workouts on this route
-    db.FitnessTracker.find({}).then(dbFitnessTracker =>{
+    db.FitnessTracker.find().then(dbFitnessTracker =>{
+        console.log("previous", dbFitnessTracker)
         dbFitnessTracker.forEach(workout =>{
             const total = 0;
             workout.exercises.forEach(e => {
@@ -30,7 +31,7 @@ router.get("/api/workouts", (req,res)=>{
 
 // GET ROUTE to get workout in range READ
 router.get("/api/workouts/range", (req,res)=>{
-    db.FitnessTracker.find({}).then(dbFitnessTracker=>{
+    db.FitnessTracker.find().then(dbFitnessTracker=>{
         console.log("ALL WORKOUTS")
         console.log(dbFitnessTracker)
         res.json(dbFitnessTracker)
