@@ -25,7 +25,7 @@ router.get("/api/workouts", (req,res)=>{
 
 // GET ROUTE to get workout in range READ
 router.get("/api/workouts/range", (req,res)=>{
-    FitnessTracker.find({})
+    FitnessTracker.aggregate().find({})
     .then(dbFitnessTracker=>{
         console.log("ALL WORKOUTS")
         console.log(dbFitnessTracker)
