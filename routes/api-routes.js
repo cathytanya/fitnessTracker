@@ -1,22 +1,27 @@
 // list of modules
 const router = require("express").Router();
-const FitnessTracker = require("../models/FitnessTracker.js")
+const db = require("../models")
 
 // POST ROUTE to CREATE a workout
-router.post("/api/workouts", (req,res)=>{
-    FitnessTracker.create({})
-    .then((dbFitnessTracker=>{
+router.post("/api/workouts", ({ body },res)=>{
+    db.FitnessTracker.create(body).then((dbFitnessTracker=>{
         res.json(dbFitnessTracker)
     })).catch(err=>{
         res.json(err);
     })
 })
 
-// GET ROUTE to READ 
+// GET ROUTE get workouts 
 router.get("/api/workouts", (req,res)=>{
     // show all the workouts on this route
-    FitnessTracker.find()
-    .then(dbFitnessTracker =>{
+    db.FitnessTracker.find({}).then(dbFitnessTracker =>{
+        dbFitnessTracker.forEach(workout =>{
+            const total = 0;
+            workout.exercises.forEach(e => {
+                total += e.duration;
+            })
+            workout.totalDuration = total;
+        })
         res.json(dbFitnessTracker);
     }).catch(err =>{
         res.json(err)
@@ -25,8 +30,7 @@ router.get("/api/workouts", (req,res)=>{
 
 // GET ROUTE to get workout in range READ
 router.get("/api/workouts/range", (req,res)=>{
-    FitnessTracker.find({})
-    .then(dbFitnessTracker=>{
+    db.FitnessTracker.find({}).then(dbFitnessTracker=>{
         console.log("ALL WORKOUTS")
         console.log(dbFitnessTracker)
         res.json(dbFitnessTracker)
@@ -37,8 +41,8 @@ router.get("/api/workouts/range", (req,res)=>{
 
 // PUT ROUTES to ADD EXERCISE UPDATE 
 router.put("/api/workouts/:id", (req,res)=>{
-    FitnessTracker.findOneAndUpdate(
-        { id: req.params.id },
+    db.FitnessTracker.findOneAndUpdate(
+        { _id: req.params.id },
         { 
             $inc: { totalDuration: req.body.duration },
             $push:{exercises: req.body}
@@ -50,17 +54,6 @@ router.put("/api/workouts/:id", (req,res)=>{
         res.json(err);
     })
 })
-//DELETE ROUTE to DELETE EXERCISE
-router.delete("/api/workouts", ({ body }, res) => {
-    FitnessTracker.findByIdAndDelete(body.id)
-    .then(() => {
-      res.json(true);
-    })
-    .catch(err => {
-      res.json(err);
-    });
-  });
-
 
 
 // export the router
