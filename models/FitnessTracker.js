@@ -7,7 +7,7 @@ const fitnessTrackerSchema = new Schema({
     // the date column. data type is date and will use today's date as the default
     day:{
         type: Date,
-        default: ()=> new Date()
+        default: Date.now
     },
     // exercise column has: type of exercise (type),name of exercise(name), 
     // how long it is(duration),reps done(reps), sets done(sets), 
@@ -16,41 +16,35 @@ const fitnessTrackerSchema = new Schema({
         {
             type:{
                 type: String,
+                trim: true,
             },
             name:{
                 type: String,
+                trim: true,
             },
+            duration: Number,
             weight: {
                 type: Number,
+                default: 0                
             },
             reps:{
                 type: Number,
-            },
+                default: 0            },
             sets:{
                 type: Number,
-            },
-            duration:{
-                type: Number,
+                default: 0
             },
             distance:{
                 type: Number,
+                default: 0,
             },
         }],
-    },
-    {
-        toJSON:{
-            virtuals: true
+        totalDuration: {
+            type: Number,
+            default: 0,
         }
-    } 
+    }
 )
-
-
-
-fitnessTrackerSchema.virtual("totalDuration").get(function () {
-    return this.exercises.reduce((total,exercise)=>{
-        return total + exercise.duration;
-    },0)
-})
 
 const FitnessTracker = mongoose.model("FitnessTracker", fitnessTrackerSchema)
 

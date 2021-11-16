@@ -25,7 +25,7 @@ router.get("/api/workouts", (req,res)=>{
 
 // GET ROUTE to get workout in range READ
 router.get("/api/workouts/range", (req,res)=>{
-    FitnessTracker.aggregate().find({})
+    FitnessTracker.find({})
     .then(dbFitnessTracker=>{
         console.log("ALL WORKOUTS")
         console.log(dbFitnessTracker)
@@ -36,11 +36,14 @@ router.get("/api/workouts/range", (req,res)=>{
 })
 
 // PUT ROUTES to ADD EXERCISE UPDATE 
-router.put("/api/workouts/:id", ({body, params},res)=>{
-    FitnessTracker.findByIdAndUpdate(
-        params.id,
-        { $push:{exercise: body}},
-        { new: true, runValidators: true }
+router.put("/api/workouts/:id", (req,res)=>{
+    FitnessTracker.findOneAndUpdate(
+        { id: req.params.id },
+        { 
+            $inc: { totalDuration: req.body.duration },
+            $push:{exercises: req.body}
+        },
+        {new:true}
     ).then(dbFitnessTracker =>{
         res.json(dbFitnessTracker)
     }).catch(err=>{
