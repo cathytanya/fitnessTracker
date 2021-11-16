@@ -12,7 +12,7 @@ const fitnessTrackerSchema = new Schema({
     // exercise column has: type of exercise (type),name of exercise(name), 
     // how long it is(duration),reps done(reps), sets done(sets), 
     // distance travelled if they do cardio(distance)
-    exercise:[
+    exercises:[
         {
             type:{
                 type: String,
@@ -29,7 +29,10 @@ const fitnessTrackerSchema = new Schema({
             sets:{
                 type: Number,
             },
-            disturation:{
+            duration:{
+                type: Number,
+            },
+            distance:{
                 type: Number,
             },
         }],
